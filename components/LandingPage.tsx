@@ -1,5 +1,5 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { Star, CheckCircle, ArrowRight, Users, Award, Zap, Mail, Phone, MapPin, Github, Linkedin, Twitter, Sun, Moon, Menu, X, Play, Pause } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { Star, CheckCircle, ArrowRight, Users, Award, Zap, Mail, Phone, MapPin, Github, Linkedin, Twitter, Sun, Moon, Menu, X } from 'lucide-react';
 
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -9,8 +9,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
   const [isDark, setIsDark] = useState(false);
   const [showVideo, setShowVideo] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [isPlaying, setIsPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
 
   useEffect(() => {
     const saved = localStorage.getItem('theme');
@@ -27,17 +25,6 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       document.documentElement.classList.remove('dark');
     }
   }, [isDark]);
-
-  const toggleMusic = () => {
-    if (audioRef.current) {
-      if (isPlaying) {
-        audioRef.current.pause();
-      } else {
-        audioRef.current.play();
-      }
-      setIsPlaying(!isPlaying);
-    }
-  };
 
   return (
     <div className={`min-h-screen transition-colors duration-300 ${isDark ? 'dark bg-slate-900' : 'bg-slate-50'}`}>
@@ -63,9 +50,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               <a href="#testimonials" className={`font-medium transition-colors ${
                 isDark ? 'text-slate-300 hover:text-indigo-400' : 'text-slate-600 hover:text-indigo-600'
               }`}>Reviews</a>
-              <a href="/team" className={`font-medium transition-colors ${
+              <a href="#contact" className={`font-medium transition-colors ${
                 isDark ? 'text-slate-300 hover:text-indigo-400' : 'text-slate-600 hover:text-indigo-600'
-              }`}>Our Team</a>
+              }`}>Contact</a>
             </div>
             <button
               onClick={() => setIsDark(!isDark)}
@@ -104,9 +91,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               <a href="#testimonials" className={`block font-medium transition-colors ${
                 isDark ? 'text-slate-300 hover:text-indigo-400' : 'text-slate-600 hover:text-indigo-600'
               }`} onClick={() => setMobileMenuOpen(false)}>Reviews</a>
-              <a href="/team" className={`block font-medium transition-colors ${
+              <a href="#contact" className={`block font-medium transition-colors ${
                 isDark ? 'text-slate-300 hover:text-indigo-400' : 'text-slate-600 hover:text-indigo-600'
-              }`} onClick={() => setMobileMenuOpen(false)}>Our Team</a>
+              }`} onClick={() => setMobileMenuOpen(false)}>Contact</a>
               <button 
                 onClick={() => { onGetStarted(); setMobileMenuOpen(false); }}
                 className="w-full px-6 py-2 bg-indigo-600 text-white rounded-xl font-medium hover:bg-indigo-700 transition-all"
@@ -189,7 +176,9 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             <div className={`p-8 rounded-2xl border hover:shadow-lg transition-all ${
               isDark ? 'bg-slate-700 border-slate-600' : 'bg-white border-slate-100'
             }`}>
-              
+              <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center mb-6">
+                <Award className="text-emerald-600" size={24} />
+              </div>
               <h3 className={`text-xl font-bold mb-4 transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`}>Enterprise Grade</h3>
               <p className={`transition-colors ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Simulates screening processes from Google, Amazon, Microsoft, and other Fortune 500 companies.</p>
             </div>
@@ -254,134 +243,93 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
       </section>
 
       {/* Contact Form */}
-<section
-  id="contact"
-  className={`py-20 transition-colors ${isDark ? 'bg-slate-800' : 'bg-white'}`}
->
-  <div className="max-w-7xl mx-auto px-4">
-    <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
-
-      {/* Left Column - Contact Info */}
-      <div className="space-y-6">
-        <h2
-          className={`text-4xl font-bold mb-6 transition-colors ${
-            isDark ? 'text-white' : 'text-slate-900'
-          }`}
-        >
-          Get in Touch
-        </h2>
-        <p
-          className={`text-lg mb-8 transition-colors ${
-            isDark ? 'text-slate-300' : 'text-slate-600'
-          }`}
-        >
-          Have questions? We're here to help you succeed.
-        </p>
-
-        {/* Email */}
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
-            <Mail className="text-indigo-600" size={20} />
-          </div>
-          <div>
-            <p
-              className={`font-bold transition-colors ${
-                isDark ? 'text-white' : 'text-slate-900'
-              }`}
-            >
-              Email
-            </p>
-            <p
-              className={`transition-colors ${
-                isDark ? 'text-slate-300' : 'text-slate-600'
-              }`}
-            >
-              optimuscv@proton.me
-            </p>
+      <section id="contact" className={`py-20 transition-colors ${isDark ? 'bg-slate-800' : 'bg-white'}`}>
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            <div>
+              <h2 className={`text-4xl font-bold mb-6 transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`}>Get in Touch</h2>
+              <p className={`text-lg mb-8 transition-colors ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>Have questions? We're here to help you succeed.</p>
+              <div className="space-y-6">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-indigo-100 rounded-xl flex items-center justify-center">
+                    <Mail className="text-indigo-600" size={20} />
+                  </div>
+                  <div>
+                    <p className={`font-bold transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`}>Email</p>
+                    <p className={`transition-colors ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>support@optimuscv.com</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
+                    <Phone className="text-emerald-600" size={20} />
+                  </div>
+                  <div>
+                    <p className={`font-bold transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`}>Phone</p>
+                    <p className={`transition-colors ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>+1 (555) 123-4567</p>
+                  </div>
+                </div>
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 bg-rose-100 rounded-xl flex items-center justify-center">
+                    <MapPin className="text-rose-600" size={20} />
+                  </div>
+                  <div>
+                    <p className={`font-bold transition-colors ${isDark ? 'text-white' : 'text-slate-900'}`}>Address</p>
+                    <p className={`transition-colors ${isDark ? 'text-slate-300' : 'text-slate-600'}`}>San Francisco, CA</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className={`p-8 rounded-2xl transition-colors ${isDark ? 'bg-slate-700' : 'bg-slate-50'}`}>
+              <form className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <input
+                    type="text"
+                    placeholder="First Name"
+                    className={`px-4 py-3 rounded-xl border focus:ring-2 focus:ring-indigo-500 transition-all outline-none ${
+                      isDark 
+                        ? 'border-slate-600 bg-slate-800 text-white placeholder-slate-400' 
+                        : 'border-slate-200 bg-white'
+                    }`}
+                  />
+                  <input
+                    type="text"
+                    placeholder="Last Name"
+                    className={`px-4 py-3 rounded-xl border focus:ring-2 focus:ring-indigo-500 transition-all outline-none ${
+                      isDark 
+                        ? 'border-slate-600 bg-slate-800 text-white placeholder-slate-400' 
+                        : 'border-slate-200 bg-white'
+                    }`}
+                  />
+                </div>
+                <input
+                  type="email"
+                  placeholder="Email Address"
+                  className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-indigo-500 transition-all outline-none ${
+                    isDark 
+                      ? 'border-slate-600 bg-slate-800 text-white placeholder-slate-400' 
+                      : 'border-slate-200 bg-white'
+                  }`}
+                />
+                <textarea
+                  placeholder="Your Message"
+                  rows={4}
+                  className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-indigo-500 transition-all outline-none resize-none ${
+                    isDark 
+                      ? 'border-slate-600 bg-slate-800 text-white placeholder-slate-400' 
+                      : 'border-slate-200 bg-white'
+                  }`}
+                />
+                <button
+                  type="submit"
+                  className="w-full py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all"
+                >
+                  Send Message
+                </button>
+              </form>
+            </div>
           </div>
         </div>
-
-        {/* Address */}
-        <div className="flex items-center gap-4">
-          <div className="w-12 h-12 bg-emerald-100 rounded-xl flex items-center justify-center">
-            <MapPin className="text-emerald-600" size={20} />
-          </div>
-          <div>
-            <p
-              className={`font-bold transition-colors ${
-                isDark ? 'text-white' : 'text-slate-900'
-              }`}
-            >
-              Address
-            </p>
-            <p
-              className={`transition-colors ${
-                isDark ? 'text-slate-300' : 'text-slate-600'
-              }`}
-            >
-              Mandsaur, Madhya Pradesh, India
-            </p>
-          </div>
-        </div>
-      </div>
-
-      {/* Right Column - Contact Form */}
-      <div
-        className={`p-8 rounded-2xl transition-colors ${
-          isDark ? 'bg-slate-700' : 'bg-slate-50'
-        }`}
-      >
-        <form className="space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <input
-              type="text"
-              placeholder="First Name"
-              className={`px-4 py-3 rounded-xl border focus:ring-2 focus:ring-indigo-500 transition-all outline-none ${
-                isDark
-                  ? 'border-slate-600 bg-slate-800 text-white placeholder-slate-400'
-                  : 'border-slate-200 bg-white'
-              }`}
-            />
-            <input
-              type="text"
-              placeholder="Last Name"
-              className={`px-4 py-3 rounded-xl border focus:ring-2 focus:ring-indigo-500 transition-all outline-none ${
-                isDark
-                  ? 'border-slate-600 bg-slate-800 text-white placeholder-slate-400'
-                  : 'border-slate-200 bg-white'
-              }`}
-            />
-          </div>
-          <input
-            type="email"
-            placeholder="Email Address"
-            className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-indigo-500 transition-all outline-none ${
-              isDark
-                ? 'border-slate-600 bg-slate-800 text-white placeholder-slate-400'
-                : 'border-slate-200 bg-white'
-            }`}
-          />
-          <textarea
-            placeholder="Your Message"
-            rows={4}
-            className={`w-full px-4 py-3 rounded-xl border focus:ring-2 focus:ring-indigo-500 transition-all outline-none resize-none ${
-              isDark
-                ? 'border-slate-600 bg-slate-800 text-white placeholder-slate-400'
-                : 'border-slate-200 bg-white'
-            }`}
-          />
-          <button
-            type="submit"
-            className="w-full py-3 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700 transition-all"
-          >
-            Send Message
-          </button>
-        </form>
-      </div>
-    </div>
-  </div>
-</section>
-
+      </section>
 
       {/* Footer */}
       <footer className="bg-slate-900 text-white py-16">
@@ -413,17 +361,17 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
             <div>
               <h4 className="font-bold text-white mb-4">Company</h4>
               <ul className="space-y-2 text-sm text-slate-400">
-                <li><a href="/team" className="hover:text-white transition-colors">About Us</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">About Us</a></li>
                 <li><a href="/team" className="hover:text-white transition-colors">Team</a></li>
-                <li><a href="/team" className="hover:text-white transition-colors">Careers</a></li>
-                <li><a href="https://optimuscv.github.io" className="hover:text-white transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Careers</a></li>
+                <li><a href="#" className="hover:text-white transition-colors">Blog</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-bold text-white mb-4">Support</h4>
               <ul className="space-y-2 text-sm text-slate-400">
                 <li><a href="#" className="hover:text-white transition-colors">Help Center</a></li>
-                <li><a href="/team" className="hover:text-white transition-colors">Contact Us</a></li>
+                <li><a href="#contact" className="hover:text-white transition-colors">Contact Us</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Privacy Policy</a></li>
                 <li><a href="#" className="hover:text-white transition-colors">Terms of Service</a></li>
               </ul>
@@ -432,38 +380,19 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
           <div className="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center">
             <p className="text-slate-400 text-sm">© 2026 3Dumb Developers. All rights reserved.</p>
             <div className="flex items-center gap-4 mt-4 md:mt-0">
-              <a href="https://github.com/optimuscv" className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center hover:bg-slate-700 transition-colors">
+              <a href="#" className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center hover:bg-slate-700 transition-colors">
                 <Github size={18} />
               </a>
-              <a href="https://in.linkedin.com/company/optimuscv" className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center hover:bg-slate-700 transition-colors">
+              <a href="#" className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center hover:bg-slate-700 transition-colors">
                 <Linkedin size={18} />
               </a>
-              <a href="https://x.com/optimuscv" className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center hover:bg-slate-700 transition-colors">
+              <a href="#" className="w-10 h-10 bg-slate-800 rounded-xl flex items-center justify-center hover:bg-slate-700 transition-colors">
                 <Twitter size={18} />
               </a>
             </div>
           </div>
         </div>
       </footer>
-
-      {/* Music Player */}
-      <div className="fixed bottom-4 right-4 z-50">
-        <button
-          onClick={toggleMusic}
-          className={`p-3 rounded-full shadow-lg transition-all hover:scale-105 ${
-            isDark ? 'bg-slate-800 text-white border border-slate-600' : 'bg-white text-slate-700 border border-slate-200'
-          }`}
-        >
-          {isPlaying ? <Pause size={20} /> : <Play size={20} />}
-        </button>
-        <audio
-          ref={audioRef}
-          src="/music.mp3"
-          loop
-          onPlay={() => setIsPlaying(true)}
-          onPause={() => setIsPlaying(false)}
-        />
-      </div>
 
       {/* Video Modal */}
       {showVideo && (
@@ -476,7 +405,7 @@ const LandingPage: React.FC<LandingPageProps> = ({ onGetStarted }) => {
               ✕ Close
             </button>
             <iframe
-              src="https://www.youtube.com/embed/m_8D5kUbUFY?si=rzUKtnO1Q_LyQA_W"
+              src="https://www.youtube.com/embed/MNBfB9l9yJk?autoplay=1"
               className="w-full h-full rounded-lg"
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen
